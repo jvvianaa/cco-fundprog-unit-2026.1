@@ -172,3 +172,108 @@ def calcular_indicadores(dados):
     return resultados
   
 boas_vindas()
+# ==========================================
+#  ALUNO 4 - VICTOR K. ANÁLISE HORIZONTAL E VERTICAL
+# ==========================================
+
+def calcular_variacao(valor_novo, valor_antigo):
+    if valor_antigo == 0:
+        return None
+    return ((valor_novo - valor_antigo) / valor_antigo) * 100
+
+
+def etiqueta(variacao):
+    if variacao is None:
+        return "N/A"
+    elif variacao > 0:
+        return f"[SUBIU] +{variacao:.2f}%"
+    elif variacao < 0:
+        return f"[CAIU] {variacao:.2f}%"
+    else:
+        return "[ESTÁVEL]"
+
+
+# ==============================
+#   ANÁLISE HORIZONTAL TABELA
+# ==============================
+
+def analise_horizontal(historico):
+    if len(historico) < 2:
+        print("\n⚠️ Precisa de pelo menos 2 anos cadastrados.")
+        return
+
+    print("\n" + "=" * 55)
+    print(f"{'ANÁLISE HORIZONTAL':^55}")
+    print("=" * 55)
+
+    for i in range(1, len(historico)):
+        antigo = historico[i - 1]
+        novo = historico[i]
+
+        print(f"\n📅 {antigo['ano']} → {novo['ano']}")
+        print("-" * 55)
+
+        print(f"{'Conta':<30}{'Variação':>25}")
+        print("-" * 55)
+
+        campos = [
+            ("Receita Líquida", "receita_liquida"),
+            ("Lucro Líquido", "lucro_liquido"),
+            ("Patrimônio Líquido", "patrimonio_liquido"),
+        ]
+
+        for nome, chave in campos:
+            valor_antigo = antigo.get(chave)
+            valor_novo = novo.get(chave)
+
+            if valor_antigo is None or valor_novo is None:
+                print(f"{nome:<30}{'N/A':>25}")
+                continue
+
+            variacao = calcular_variacao(valor_novo, valor_antigo)
+            print(f"{nome:<30}{etiqueta(variacao):>25}")
+
+        print("-" * 55)
+
+    print("=" * 55)
+
+
+# ==============================
+#  ANÁLISE VERTICAL TABELA
+# ==============================
+
+def analise_vertical(historico):
+    if not historico:
+        print("\n⚠️ Nenhum dado cadastrado.")
+        return
+
+    print("\n" + "=" * 55)
+    print(f"{'ANÁLISE VERTICAL':^55}")
+    print("=" * 55)
+
+    for ano in historico:
+        print(f"\n📅 Ano: {ano['ano']}")
+        print("-" * 55)
+
+        print(f"{'Conta':<30}{'Percentual':>25}")
+        print("-" * 55)
+
+        receita = ano.get("receita_liquida")
+        lucro = ano.get("lucro_liquido")
+
+        if receita is None or receita == 0:
+            print("Receita inválida.")
+            continue
+
+        percentual_lucro = (lucro / receita) * 100 if lucro is not None else None
+
+        print(f"{'Receita Líquida':<30}{'100%':>25}")
+
+        if percentual_lucro is not None:
+            print(f"{'Lucro Líquido':<30}{f'{percentual_lucro:.2f}%':>25}")
+        else:
+            print(f"{'Lucro Líquido':<30}{'N/A':>25}")
+
+        print("-" * 55)
+
+    print("=" * 55)
