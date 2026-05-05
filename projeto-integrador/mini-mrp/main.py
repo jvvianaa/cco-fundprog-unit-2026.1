@@ -52,12 +52,18 @@ def main ():
 if __name__ == "__main__":
     main() 
 
-EStoque_baterias = 100
-estoque_telas = 100
-estoque_processadores = 100
-estoque_carcaças = 100
-estoque_memorias = 100
-#teste
+Estoque_bateria = 100
+estoque_tela = 100
+estoque_processadore = 100
+estoque_carcaça = 100
+estoque_memoria = 100
+bateeria = 0
+tela = 0
+processador = 0
+carcaca = 0
+memoria = 0
+
+
 #Laura Rezende - Motor de explosão
 
 
