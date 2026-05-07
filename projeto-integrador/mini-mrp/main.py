@@ -25,7 +25,7 @@ def executar_motor_explosao(quantidade_pedida, componentes):
         else:
             print(f"Item: {nome_item:12} | [OK] Saldo final: {saldo_pos_producao}")
 
-#PLANILHA
+#Planilha
 def mostrar_planilha(necessidades):
     semanas = 8
 
